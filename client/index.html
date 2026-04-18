@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Clip-Adjust</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="panel">
+        <header>
+            <h1>Clip-Adjust</h1>
+            <span class="sub">テロップ同期</span>
+        </header>
+
+        <section class="form">
+            <div class="field">
+                <label for="baseTrack">ベース動画トラック</label>
+                <select id="baseTrack"></select>
+            </div>
+
+            <div class="field">
+                <label for="targetTrack">テロップトラック</label>
+                <select id="targetTrack"></select>
+            </div>
+
+            <div class="field">
+                <label for="tolerance">許容フレーム数</label>
+                <div class="tolerance-row">
+                    <input type="number" id="tolerance" value="5" min="1" max="120">
+                    <span class="hint">1〜120</span>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="reloadBtn" class="secondary" title="シーケンス情報を読み直す">更新</button>
+                <button id="runBtn" class="primary">実行</button>
+            </div>
+        </section>
+
+        <section id="status" class="status"></section>
+
+        <footer>
+            <span id="versionLabel"></span>
+        </footer>
+    </div>
+
+    <script src="../lib/CSInterface.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
