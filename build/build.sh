@@ -24,8 +24,14 @@ ZXPSIGN="$BUILD_DIR/ZXPSignCmd"
 if [[ ! -x "$ZXPSIGN" ]]; then
     OS=$(uname -s)
     case "$OS" in
-        Darwin) URL="https://github.com/Adobe-CEP/CEP-Resources/raw/master/ZXPSignCMD/4.1.1/mac/ZXPSignCmd" ;;
-        Linux)  URL="https://github.com/Adobe-CEP/CEP-Resources/raw/master/ZXPSignCMD/4.1.1/linux64/ZXPSignCmd" ;;
+        Darwin) URL="https://github.com/Adobe-CEP/CEP-Resources/raw/master/ZXPSignCMD/4.1.3/macOS/ZXPSignCmd" ;;
+        Linux)
+            # Adobe doesn't ship a Linux ZXPSignCmd. CI builds should use npm
+            # `zxp-sign-cmd` (pure JS) instead. For local Linux users, install
+            # ZXPSignCmd manually and drop it into build/ZXPSignCmd.
+            echo "ERROR: Linux has no official ZXPSignCmd binary." >&2
+            echo "For CI, use the zxp-sign-cmd npm package. For local, install manually." >&2
+            exit 1 ;;
         *) echo "Unsupported OS for build.sh: $OS (use build.ps1 on Windows)"; exit 1 ;;
     esac
     echo "▶ Downloading ZXPSignCmd from Adobe-CEP repo"

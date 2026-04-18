@@ -19,7 +19,7 @@ Write-Host "▶ Building Clip-Adjust v$Version"
 $ZxpSign = Join-Path $BuildDir "ZXPSignCmd.exe"
 if (-not (Test-Path $ZxpSign)) {
     Write-Host "▶ Downloading ZXPSignCmd from Adobe-CEP repo"
-    $url = "https://github.com/Adobe-CEP/CEP-Resources/raw/master/ZXPSignCMD/4.1.1/win64/ZXPSignCmd.exe"
+    $url = "https://github.com/Adobe-CEP/CEP-Resources/raw/master/ZXPSignCMD/4.1.3/x64/ZXPSignCmd.exe"
     Invoke-WebRequest -Uri $url -OutFile $ZxpSign
 }
 
