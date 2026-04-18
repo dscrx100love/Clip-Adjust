@@ -156,41 +156,37 @@ Premiere Pro 上でベース動画クリップのカット開始位置にテロ�
 
 ### 7.1 配布物
 ```
-Clip-Adjust-vX.Y.Z.zip
-├── SubtitleSync.jsx          ← 本体（単一ファイル）
-├── install-mac.command       ← Mac 用ワンクリックインストーラー
-├── install-win.bat           ← Windows 用ワンクリックインストーラー
-└── README.md                 ← 導入・使い方
+SubtitleSync.jsx          ← 本体（単一ファイル、これだけで完結）
+README.md                 ← 導入・使い方
+docs/requirements.md      ← 本ドキュメント
+LICENSE
 ```
 
 ### 7.2 導入パターン
 
-#### パターン A: お試し（インストール不要）
-1. zip を解凍
-2. Premiere Pro で **ファイル > スクリプト > スクリプトファイルを実行...** → `SubtitleSync.jsx` を選択
-3. 以降、毎回同じ手順で起動
+> **方針:** バイナリ配布（.command / .bat 等の実行ファイル）は macOS の Gatekeeper や
+> Windows SmartScreen の警告でかえって導入ハードルが上がるため **採用しない**。
+> 手動コピー（= OS のファイル操作のみ）をメインにする。
 
-#### パターン B: 正規インストール（推奨 / ワンクリック）
-1. zip を解凍
-2. `install-mac.command`（Mac）または `install-win.bat`（Win）をダブルクリック
-3. スクリプトが Premiere の `Scripts` フォルダに `SubtitleSync.jsx` をコピー
-4. Premiere を再起動すると **ファイル > スクリプト > SubtitleSync** メニューに登場
-5. 以降はメニューからワンクリック起動、ショートカット割当も可
+#### パターン A: 手動コピー（推奨）
+1. `SubtitleSync.jsx` を取得（Releases or raw ダウンロード）
+2. OS 別に所定のユーザー Scripts フォルダへコピー
+    - **macOS:** `~/Documents/Adobe/Premiere Pro/<version>/Scripts/`
+    - **Windows:** `%USERPROFILE%\Documents\Adobe\Premiere Pro\<version>\Scripts\`
+3. `Scripts` フォルダが存在しない場合はユーザーが新規作成（README で明記）
+4. Premiere Pro を再起動 → **ファイル > スクリプト > SubtitleSync** から起動可能
 
-### 7.3 インストーラーの実装要件
+#### パターン B: インストールせずに毎回実行
+1. `SubtitleSync.jsx` を任意の場所に保存
+2. Premiere Pro で **ファイル > スクリプト > スクリプトファイルを実行...** から選択
 
-- Premiere Pro のインストールフォルダを自動検出（複数バージョンがある場合は最新を選択、または選択 UI）
-- コピー先が存在しない場合は作成
-- 既存の同名スクリプトは上書き（バージョンアップ対応）
-- 管理者権限が必要な場合は自動で昇格プロンプトを出す
-- 結果（成功 / 失敗理由）をコンソールまたはダイアログで通知
+### 7.3 README 記述要件
 
-#### 7.3.1 Premiere Pro Scripts フォルダ標準パス（参考）
-
-- **macOS:** `/Applications/Adobe Premiere Pro <version>/Adobe Premiere Pro <version>.app/Contents/Scripts/`
-  - ユーザー用: `~/Documents/Adobe/Premiere Pro/<version>/Scripts/`（こちらを優先）
-- **Windows:** `C:\Program Files\Adobe\Adobe Premiere Pro <version>\Scripts\`
-  - ユーザー用: `C:\Users\<user>\Documents\Adobe\Premiere Pro\<version>\Scripts\`（こちらを優先）
+- 「所定のフォルダへコピー」の手順を OS 別にスクリーンショット代わりのテキスト指示で説明
+- Mac: Finder の「フォルダへ移動」（`Cmd+Shift+G`）でパスを貼り付ける前提
+- Windows: エクスプローラーのアドレスバーにパスを貼り付ける前提
+- バージョンフォルダ（例: `25.0`）が複数ある場合は「一番新しいもの」を開くよう指示
+- `Scripts` フォルダが無い場合の新規作成を明示
 
 ## 8. バージョニング / リリース
 
@@ -219,5 +215,5 @@ Clip-Adjust-vX.Y.Z.zip
 - [ ] 許容範囲内のテロップのみがスナップされ、範囲外はスキップされる
 - [ ] 尺が意図せず変わらない（スライド動作で IN/OUT が同量移動）
 - [ ] Cmd/Ctrl+Z で一括 undo できる
-- [ ] `install-mac.command` / `install-win.bat` ダブルクリックでメニュー登録まで完了する
-- [ ] README の手順だけで非エンジニアが導入・実行できる
+- [ ] README の手順（手動コピー）だけで非エンジニアが導入・実行できる
+- [ ] 導入フローに OS のセキュリティ警告（Gatekeeper / SmartScreen）を踏まない
